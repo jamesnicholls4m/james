@@ -1,15 +1,18 @@
 # Code refactored from https://docs.streamlit.io/knowledge-base/tutorials/build-conversational-apps
 
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key=key = st.secrets['OPENAI_API,
+api_key=key = st.text_input('Enter OpenAI API token:', type='pass)
 import streamlit as st
 
 with st.sidebar:
     st.title('🤖💬 OpenAI Chatbot')
     if 'OPENAI_API_KEY' in st.secrets:
         st.success('API key already provided!', icon='✅')
-        openai.api_key = st.secrets['OPENAI_API_KEY']
+  _KEY']
     else:
-        openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
+  word')
         if not (openai.api_key.startswith('sk-') and len(openai.api_key)==51):
             st.warning('Please enter your credentials!', icon='⚠️')
         else:
@@ -29,10 +32,9 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
-        for response in openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": m["role"], "content": m["content"]}
-                      for m in st.session_state.messages], stream=True):
+        for client.chat.completions.tCompl(            model="gpt-3.5-turbo",
+                    messages=[{"role": m["role"], "content": m["content"]}
+                              for m in st.session_state.messages],)stream=True):
             full_response += response.choices[0].delta.get("content", "")
             message_placeholder.markdown(full_response + "▌")
         message_placeholder.markdown(full_response)
